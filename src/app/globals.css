@@ -1,0 +1,49 @@
+@import url('https://cdn.jsdelivr.net/gh/neodgm/neodgm-web-font@1.530/neodgm/style.css');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'NeoDunggeunmo', monospace;
+  --font-retro: 'NeoDunggeunmo', monospace;
+  --font-pixel: 'NeoDunggeunmo', cursive;
+
+  --color-rpg-bg: #F8F4E6;
+  --color-rpg-card: #E8DECC;
+  --color-rpg-wood: #8B5A2B;
+  --color-rpg-text-primary: #3E2723;
+  --color-rpg-text-secondary: #5D4037;
+  --color-rpg-gold: #A67C00;
+  --color-rpg-gold-hover: #C5A020;
+  --color-rpg-green: #2E7D32;
+  --color-rpg-border: #5D4037;
+
+  --shadow-rpg: 4px 4px 0px rgba(93, 64, 55, 0.4);
+  --shadow-rpg-sm: 2px 2px 0px rgba(93, 64, 55, 0.2);
+}
+
+body {
+  font-family: var(--font-retro);
+  background-color: var(--color-rpg-bg);
+  color: var(--color-rpg-text-primary);
+  line-height: 1.5;
+  font-size: 20px;
+  -webkit-font-smoothing: antialiased;
+  background-image: radial-gradient(var(--color-rpg-card) 10%, transparent 11%);
+  background-size: 10px 10px;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-rpg-card);
+  border-left: 2px solid var(--color-rpg-border);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-rpg-wood);
+  border: 2px solid var(--color-rpg-border);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-rpg-text-primary);
+}
