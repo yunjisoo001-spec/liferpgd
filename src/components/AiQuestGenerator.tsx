@@ -112,13 +112,13 @@ export default function AiQuestGenerator({ onRegisterQuest, onClose }: AiQuestGe
         onRegisterQuest(newQuest, selectedDate);
         setRegisterSuccess(true);
         setTimeout(() => setRegisterSuccess(false), 3000);
+        setSelectedQuest(null); // 성공 시에만 모달 닫기
       }
     } catch (err: any) {
       console.error(err);
-      setRegisterError('퀘스트 등록에 실패했습니다.');
+      setRegisterError(`퀘스트 등록에 실패했습니다: ${err.message || '알 수 없는 오류'}`);
     } finally {
       setIsRegistering(false);
-      setSelectedQuest(null);
     }
   };
 
@@ -196,9 +196,16 @@ export default function AiQuestGenerator({ onRegisterQuest, onClose }: AiQuestGe
           </div>
         )}
         {(error || registerError) && (
-          <div className="self-center bg-red-100 text-red-800 p-3 rounded-lg border-2 border-red-800 font-retro text-sm flex items-center gap-2">
-            <AlertCircle size={16} />
-            {registerError || '연결 오류가 발생했습니다.'}
+          <div className="self-center bg-red-100 text-red-800 p-3 rounded-lg border-2 border-red-800 font-retro text-sm flex items-center justify-between gap-3 shadow-rpg-sm">
+            <div className="flex items-center gap-2">
+              <AlertCircle size={16} />
+              <span>{registerError || (error as any)?.message || '연결 오류가 발생했습니다.'}</span>
+            </div>
+            {registerError && (
+              <button onClick={() => setRegisterError('')} className="hover:text-red-900 focus:outline-none">
+                <X size={16} />
+              </button>
+            )}
           </div>
         )}
         <div ref={messagesEndRef} />
