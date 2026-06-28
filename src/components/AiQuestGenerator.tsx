@@ -94,7 +94,7 @@ export default function AiQuestGenerator({ onRegisterQuest, onClose }: AiQuestGe
         status: 'pending'
       });
 
-      if (error) throw error;
+      if (error) throw new Error(typeof error === 'string' ? error : error?.message || JSON.stringify(error) || '알 수 없는 에러');
 
       if (data) {
         const newQuest: Quest = {
@@ -115,8 +115,9 @@ export default function AiQuestGenerator({ onRegisterQuest, onClose }: AiQuestGe
         setSelectedQuest(null); // 성공 시에만 모달 닫기
       }
     } catch (err: any) {
-      console.error(err);
-      setRegisterError(`퀘스트 등록에 실패했습니다: ${err.message || '알 수 없는 오류'}`);
+      console.error('Register error:', err);
+      const errMsg = err?.message || (typeof err === 'object' ? JSON.stringify(err) : String(err));
+      setRegisterError(`퀘스트 등록에 실패했습니다: ${errMsg === '{}' ? '네트워크 오류 또는 서버 응답 에러' : errMsg}`);
     } finally {
       setIsRegistering(false);
     }

@@ -1,4 +1,6 @@
-import { supabase } from '@/lib/supabase';
+"use server";
+
+import { supabaseAdmin as supabase } from '@/lib/supabaseServer';
 import { StatType } from '@/types/quest';
 
 /**
@@ -103,7 +105,7 @@ export async function updateCharacterStat(userId: string, statType: StatType, bo
 /**
  * 레벨업 계산 로직
  */
-export function calculateLevelUp(currentXp: number, addedXp: number, currentLevel: number, currentMaxXp: number) {
+function calculateLevelUp(currentXp: number, addedXp: number, currentLevel: number, currentMaxXp: number) {
   let newXp = currentXp + addedXp;
   let newLevel = currentLevel;
   let newMaxXp = currentMaxXp;

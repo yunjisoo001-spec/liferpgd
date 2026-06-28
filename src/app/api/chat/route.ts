@@ -1,7 +1,6 @@
 import { streamText } from 'ai';
 import { google } from '@ai-sdk/google';
 
-export const runtime = 'edge';
 
 const systemPrompt = `당신은 Life Quest RPG의 퀘스트 마스터입니다. 사용자가 입력한 일상 활동이나 목표를 RPG 퀘스트 형식으로 변환해주세요.
 

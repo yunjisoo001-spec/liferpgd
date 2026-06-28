@@ -1,4 +1,6 @@
-import { supabase } from '@/lib/supabase';
+"use server";
+
+import { supabaseAdmin as supabase } from '@/lib/supabaseServer';
 import { Quest } from '@/types/quest';
 import { getProfile, getCharacterStats } from '@/lib/characterService';
 
@@ -7,6 +9,9 @@ import { getProfile, getCharacterStats } from '@/lib/characterService';
  */
 export async function createQuest(userId: string, questData: Partial<Quest>) {
   try {
+    // 외래키 제약 조건(quests_user_id_fkey) 해결을 위해 프로필 및 캐릭터 정보가 존재하는지 확인하고 없으면 자동 생성합니다.
+    await getProfile(userId);
+
     const { data, error } = await supabase
       .from('quests')
       .insert([
@@ -28,8 +33,8 @@ export async function createQuest(userId: string, questData: Partial<Quest>) {
     if (error) throw error;
     return { data, error: null };
   } catch (error: any) {
-    console.error('Error in createQuest:', error);
-    return { data: null, error };
+    console.error('Error in createQuest:', error?.message || error);
+    return { data: null, error: error?.message || error };
   }
 }
 
